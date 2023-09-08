@@ -5,12 +5,13 @@ const { logger } = require("./middleware/logger");
 const errorHandler = require("./middleware/errorHandler");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+const corsOptions = require('./config/corsoptions')
 const PORT = process.env.PORT || 1337;
 
 // middleware call
 app.use(logger);
 
-app.use(cors());
+app.use(cors(corsOptions));
 
 // Process json receive and parse json file
 app.use(express.json());
