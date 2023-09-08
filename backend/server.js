@@ -3,8 +3,12 @@ const app = express();
 const path = require("path");
 const PORT = process.env.PORT || 1337;
 
+// Process json receive and parse json file
+app.use(express.json())
+
+
 // handle statis files
-app.use('/', express.static(path.join(__dirname, '/public')));
+app.use(express.static('public'));
 
 // routes
 app.use("/", require("./routes/root"));
