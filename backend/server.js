@@ -2,20 +2,26 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const { logger } = require("./middleware/logger");
+const errorHandler = require("./middleware/errorHandler");
+const cookieParser = require("cookie-parser");
+const cors = require("cors");
 const PORT = process.env.PORT || 1337;
 
 // middleware call
 app.use(logger);
+
+app.use(cors());
+
 // Process json receive and parse json file
 app.use(express.json());
+
+app.use(cookieParser());
 
 // handle static files
 app.use(express.static("public"));
 
 // routes
 app.use("/", require("./routes/root"));
-
-app.listen(PORT, () => console.log(`Server listning on port ${PORT}`));
 
 // handle route not found
 app.all("*", (req, res) => {
@@ -29,3 +35,6 @@ app.all("*", (req, res) => {
     req.type("txt").send("404 Not Found");
   }
 });
+
+app.use(errorHandler);
+app.listen(PORT, () => console.log(`Server listning on port ${PORT}`));
