@@ -8,7 +8,7 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const corsOptions = require("./config/corsoptions");
 const connectDB = require("./config/dbconn");
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const { logEvents } = require("./middleware/logger");
 const PORT = process.env.PORT || 1337;
 
@@ -27,8 +27,9 @@ app.use(cookieParser());
 // handle static files
 app.use(express.static("public"));
 
-// routes
+// ------------------>routes
 app.use("/", require("./routes/root"));
+app.use("/users", require("./routes/userRoutes"));
 
 // handle route not found
 app.all("*", (req, res) => {
